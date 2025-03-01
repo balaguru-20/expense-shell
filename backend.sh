@@ -34,7 +34,7 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
-mkdir /var/log/expense-logs
+mkdir /var/log/expense-logs &>>$LOG_FILE_NAME
 VALIDATE $? "creating expense-logs directory"
 
 dnf module disable nodejs -y  &>>$LOG_FILE_NAME
