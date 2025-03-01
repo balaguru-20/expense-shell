@@ -34,8 +34,15 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
-mkdir /var/log/expense-logs &>>$LOG_FILE_NAME
-VALIDATE $? "creating expense-logs directory"
+expense_logs=find /var/log/expense-logs/ -type d -name "expense-logs"
+
+if [ $expense_logs -ne "expense-logs" ]
+then
+    mkdir /var/log/expense-logs &>>$LOG_FILE_NAME
+    VALIDATE $? "creating expense-logs directory"
+else
+    echo -e "$expense_logs already created --- $Y SKIPPING $N"
+fi
 
 dnf module disable nodejs -y  &>>$LOG_FILE_NAME
 VALIDATE $? "Disabling existing default Nodejs"
