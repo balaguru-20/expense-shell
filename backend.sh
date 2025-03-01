@@ -34,7 +34,7 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
-expense_logs=find /var/log/expense-logs/ -type d -name "expense-logs"
+expense_logs=find /var/log/expense-logs/ -type d -name "expense-logs"   &>>$LOG_FILE_NAME
 
 if [ $expense_logs -ne "expense-logs" ]
 then
