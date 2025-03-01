@@ -36,9 +36,9 @@ CHECK_ROOT
 
 expense_logs=find /var/log/expense-logs/ -type d -name "expense-logs"   &>>$LOG_FILE_NAME
 
-if [ $expense_logs -ne expense-logs ]
+if [ "$expense_logs" -ne 0 ]
 then
-    mkdir /var/log/expense-logs &>>$LOG_FILE_NAME
+    mkdir /var/log/expense-logs
     VALIDATE $? "creating expense-logs directory"
 else
     echo -e "$expense_logs already created --- $Y SKIPPING $N"
