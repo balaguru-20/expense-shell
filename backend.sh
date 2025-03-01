@@ -36,7 +36,7 @@ CHECK_ROOT
 
 if [ ! -d "/var/log/expense-logs/" ]
 then
-    mkdir /var/log/expense-logs &>>$LOG_FILE_NAME
+    mkdir /var/log/expense-logs &>>$LOG_FILE_NAME # Here we can simply use -p than the condition
     VALIDATE $? "creating expense-logs directory"
 else
     echo -e "expense_logs directory already created --- $Y SKIPPING $N"
@@ -59,8 +59,8 @@ then
 else
     echo -e "expense user already exists ... $Y SKIPPING $N"
 fi
-
-mkdir /app  &>>$LOG_FILE_NAME
+ 
+mkdir -p /app  &>>$LOG_FILE_NAME    #-p means it will be created if the directory does not exist. if exists it will simply ignores
 VALIDATE $? "creating an app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip   &>>$LOG_FILE_NAME
