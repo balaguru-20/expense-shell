@@ -34,13 +34,16 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
-if [ ! -d "/var/log/expense-logs/" ]
-then
-    mkdir /var/log/expense-logs &>>$LOG_FILE_NAME # Here we can simply use -p than the condition
-    VALIDATE $? "creating expense-logs directory"
-else
-    echo -e "expense_logs directory already created --- $Y SKIPPING $N"
-fi
+# if [ ! -d "/var/log/expense-logs/" ]
+# then
+#     mkdir /var/log/expense-logs &>>$LOG_FILE_NAME # Here we can simply use -p than the condition
+#     VALIDATE $? "creating expense-logs directory"
+# else
+#     echo -e "expense_logs directory already created --- $Y SKIPPING $N"
+# fi
+
+mkdir -p /var/log/expense-logs &>>$LOG_FILE_NAME # Here we can simply use -p than the condition
+VALIDATE $? "creating expense-logs directory"
 
 dnf module disable nodejs -y  &>>$LOG_FILE_NAME
 VALIDATE $? "Disabling existing default Nodejs"
