@@ -39,7 +39,7 @@ then
     mkdir /var/log/expense-logs &>>$LOG_FILE_NAME
     VALIDATE $? "creating expense-logs directory"
 else
-    echo -e "expense_logs already created --- $Y SKIPPING $N"
+    echo -e "expense_logs directory already created --- $Y SKIPPING $N"
 fi
 
 dnf module disable nodejs -y  &>>$LOG_FILE_NAME
@@ -51,8 +51,14 @@ VALIDATE $? "Enabling Nodejs:20"
 dnf install nodejs -y   &>>$LOG_FILE_NAME
 VALIDATE $? "Installing Nodejs"
 
-useradd expense &>>$LOG_FILE_NAME
-VALIDATE $? "Adding expense user"
+id expense &>>$LOG_FILE_NAME
+if [ $? -ne 0 ]
+then
+    useradd expense &>>$LOG_FILE_NAME
+    VALIDATE $? "Adding expense user"
+else
+    echo -e "expense user already exists ... $Y SKIPPING $N"
+fi
 
 mkdir /app  &>>$LOG_FILE_NAME
 VALIDATE $? "creating an app directory"
